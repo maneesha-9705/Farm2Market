@@ -1,0 +1,205 @@
+/* HEADER */
+
+.header {
+    background: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: clamp(24px, 5vw, 36px);
+}
+
+.header p {
+    margin: 10px 0 0;
+    font-size: clamp(14px, 2vw, 18px);
+    opacity: 0.9;
+}
+
+/* FOOTER */
+
+.footer {
+    background: #1b5e20;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+/* REQUIRED SYMBOL */
+
+.required {
+    color: #e53935;
+    font-weight: bold;
+    margin-left: 3px;
+}
+
+/* FORM CONTAINER */
+
+.container {
+    max-width: 500px;
+    width: 90%;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.container h2 {
+    margin-top: 0;
+    color: #2e7d32;
+    font-size: 24px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+}
+
+input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.price-info {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.disclaimer {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+button {
+    width: 100%;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background: #1b5e20;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* PHONE ROW & OTP BUTTONS */
+
+.phoneRow {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.phoneRow input {
+    margin-bottom: 0;
+    flex: 1;
+}
+
+.otpBtn {
+    width: auto;
+    white-space: nowrap;
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+.otpSection {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #2e7d32;
+}
+
+.verifyBtn {
+    background: #1b5e20;
+}
+
+.success {
+    color: #2e7d32;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.info {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .header {
+        padding: 30px 15px;
+    }
+
+    .phoneRow {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .phoneRow input {
+        width: 100%;
+    }
+
+    .otpBtn {
+        width: 100%;
+    }
+}
