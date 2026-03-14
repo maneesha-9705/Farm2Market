@@ -1,45 +1,81 @@
-import React, { useState } from "react"
-import {useNavigate} from "react-router-dom"
+import React, { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
 import "./Agri.css"
 
-function CropForm(){
 
-const navigate = useNavigate()
+function CropForm() {
 
-const [crop,setCrop] = useState("")
-const [mandal,setMandal] = useState("")
-const [village,setVillage] = useState("")
-const [address,setAddress] = useState("")
-const [price,setPrice] = useState("")
+  const navigate = useNavigate()
 
-const priceMap = {
-paddy:"₹1800 - ₹2200",
-maize:"₹1500 - ₹1900",
-blackgram:"₹6000 - ₹7500"
-}
+  const [crop, setCrop] = useState("")
+  const [mandal, setMandal] = useState("")
+  const [village, setVillage] = useState("")
+  const [address, setAddress] = useState("")
+  const [price, setPrice] = useState("")
+  const [showAuthPopup, setShowAuthPopup] = useState(false)
 
-function handleCrop(e){
+  const priceMap = {
+    paddy: "₹1800 - ₹2200",
+    maize: "₹1500 - ₹1900",
+    blackgram: "₹6000 - ₹7500"
+  }
 
-const value = e.target.value
-setCrop(value)
-setPrice(priceMap[value])
+  function handleCrop(e) {
 
-}
+    const value = e.target.value
+    setCrop(value)
+    setPrice(priceMap[value])
 
-function handleSell(){
+  }
 
-if(!crop || !mandal || !village || !address){
+  async function handleSell() {
 
-alert("Please fill all required fields")
-return
+    const token = localStorage.getItem("token");
+    if (!token || token === "undefined" || token === "null") {
+      setShowAuthPopup(true);
+      return;
+    }
 
-}
+    if (!crop || !mandal || !village || !address) {
+      alert("Please fill all required fields")
+      return
+    }
 
-navigate("/User")
+    try {
 
-}
+      const response = await fetch("http://localhost:5000/sell", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": token
+        },
+        body: JSON.stringify({ crop, mandal, village, address })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        alert(data.message)
+        navigate("/User")
+      }
+      else if (response.status === 401 || response.status === 403) {
+        // Token is invalid or expired
+        localStorage.removeItem("token");
+        setShowAuthPopup(true);
+      }
+      else {
+        alert("Failed to submit sell data")
+      }
+
+    }
+    catch (error) {
+      console.error(error)
+      alert("Server error")
+    }
+
+  }
 
   return (
     <div className="app-container">
@@ -61,7 +97,7 @@ navigate("/User")
           <input value="Krishna" disabled />
 
           <label>Mandal<span className="required">*</span></label>
-          <select onChange={(e) => setMandal(e.target.value)}>
+          <select value={mandal} onChange={(e) => setMandal(e.target.value)}>
             <option value="">Select Mandal</option>
             <option value="Avanigadda">Avanigadda</option>
             <option value="Bantumilli">Bantumilli</option>
@@ -93,6 +129,20 @@ navigate("/User")
             Sell Crop
           </button>
         </div>
+
+        {showAuthPopup && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h3>Authentication Required</h3>
+              <p>Please register or login before you can sell your crop.</p>
+              <div className="modal-actions">
+                <button onClick={() => navigate("/login")}>Login</button>
+                <button onClick={() => navigate("/register")}>Register</button>
+                <button className="btn-secondary" onClick={() => setShowAuthPopup(false)}>Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
       <Footer />
     </div>

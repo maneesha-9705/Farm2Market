@@ -1,9 +1,20 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
 import "./Agri.css"
 
 function User() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        // Check if user is logged in
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Please login or register to access this page.");
+            navigate("/login");
+        }
+    }, [navigate]);
 
     const [name, setName] = useState("")
     const [phone, setPhone] = useState("")
@@ -45,16 +56,44 @@ function User() {
 
     }
 
-    function confirmSell() {
+    async function confirmSell() {
 
-        if (!verified) {
-            alert("Please verify mobile number first")
-            return
-        }
-        setConfirm(true)
-
+    if (!verified) {
+        alert("Please verify mobile number first")
+        return
     }
 
+    try {
+
+        const token = localStorage.getItem("token")
+
+        const response = await fetch("http://localhost:5000/confirm-sell", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                name,
+                phone
+            })
+        })
+
+        const data = await response.json()
+
+        if (response.ok) {
+            setConfirm(true)
+            alert(data.message)
+        } else {
+            alert("Failed to confirm sell")
+        }
+
+    } catch (error) {
+        console.error(error)
+        alert("Server error")
+    }
+
+}
     return (
         <div className="app-container">
             <Header />
