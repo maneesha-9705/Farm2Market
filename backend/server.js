@@ -10,7 +10,13 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174'] }));
+app.use(cors({ 
+    origin: ['https://farm2market-lime.vercel.app', 'http://localhost:5173', 'http://localhost:5174'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
 const Port = process.env.PORT || 5000;
 
 
@@ -30,11 +36,11 @@ app.post('/register', async (req, res) => {
         if (existingUser) return res.status(400).json({ message: "User with this phone already exists" });
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = { 
-            id: Date.now().toString(), 
-            name, 
-            phone, 
-            password: hashedPassword 
+        const newUser = {
+            id: Date.now().toString(),
+            name,
+            phone,
+            password: hashedPassword
         };
 
         const { error: insertError } = await supabase
@@ -128,7 +134,7 @@ app.post("/confirm-sell", verifyToken, async (req, res) => {
                 .from('products')
                 .update({ status: 'published' })
                 .eq('id', productId);
-            
+
             if (error) throw error;
         }
 
