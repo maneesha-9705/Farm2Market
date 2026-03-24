@@ -35,7 +35,7 @@ function Login() {
                 alert("Login successful!");
 
                 // Navigate to the User page after successful login
-                navigate("/User");
+                navigate("/");
             } else {
                 alert(data.message || "Login failed. Please check your credentials.");
             }

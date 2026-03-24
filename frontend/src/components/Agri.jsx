@@ -14,7 +14,6 @@ function CropForm() {
   const [village, setVillage] = useState("")
   const [address, setAddress] = useState("")
   const [price, setPrice] = useState("")
-  const [showAuthPopup, setShowAuthPopup] = useState(false)
 
   const priceMap = {
     paddy: "₹1800 - ₹2200",
@@ -33,10 +32,6 @@ function CropForm() {
   async function handleSell() {
 
     const token = localStorage.getItem("token");
-    if (!token || token === "undefined" || token === "null") {
-      setShowAuthPopup(true);
-      return;
-    }
 
     if (!crop || !mandal || !village || !address) {
       alert("Please fill all required fields")
@@ -58,12 +53,12 @@ function CropForm() {
 
       if (response.ok) {
         alert(data.message)
-        navigate("/User")
+        navigate("/User", { state: { productId: data.productId } })
       }
       else if (response.status === 401 || response.status === 403) {
         // Token is invalid or expired
         localStorage.removeItem("token");
-        setShowAuthPopup(true);
+        navigate("/login");
       }
       else {
         alert("Failed to submit sell data")
@@ -130,19 +125,6 @@ function CropForm() {
           </button>
         </div>
 
-        {showAuthPopup && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <h3>Authentication Required</h3>
-              <p>Please register or login before you can sell your crop.</p>
-              <div className="modal-actions">
-                <button onClick={() => navigate("/login")}>Login</button>
-                <button onClick={() => navigate("/register")}>Register</button>
-                <button className="btn-secondary" onClick={() => setShowAuthPopup(false)}>Cancel</button>
-              </div>
-            </div>
-          </div>
-        )}
       </main>
       <Footer />
     </div>
