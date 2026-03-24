@@ -45,7 +45,7 @@ function User() {
 
         try {
             const token = localStorage.getItem("token")
-            const response = await fetch("http://localhost:5000/confirm-sell", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/confirm-sell`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

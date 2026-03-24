@@ -40,7 +40,7 @@ function CropForm() {
 
     try {
 
-      const response = await fetch("http://localhost:5000/sell", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/sell`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

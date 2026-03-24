@@ -19,7 +19,7 @@ function Login() {
 
         try {
             // Adjust the URL if your backend login endpoint is different
-            const response = await fetch("http://localhost:5000/login", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
