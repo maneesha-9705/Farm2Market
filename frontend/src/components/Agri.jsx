@@ -4,6 +4,8 @@ import Header from "./Header"
 import Footer from "./Footer"
 import "./Agri.css"
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function CropForm() {
 
@@ -40,7 +42,7 @@ function CropForm() {
 
     try {
 
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/sell`, {
+      const response = await fetch(`${API_URL}/sell`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

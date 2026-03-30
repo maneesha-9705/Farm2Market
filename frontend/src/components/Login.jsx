@@ -4,6 +4,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "./Agri.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function Login() {
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
@@ -19,7 +21,7 @@ function Login() {
 
         try {
             // Adjust the URL if your backend login endpoint is different
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
+            const response = await fetch(`${API_URL}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

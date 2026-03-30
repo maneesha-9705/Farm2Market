@@ -4,6 +4,8 @@ import Header from "./Header"
 import Footer from "./Footer"
 import "./Agri.css"
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function User() {
     const navigate = useNavigate()
     const location = useLocation()
@@ -45,7 +47,7 @@ function User() {
 
         try {
             const token = localStorage.getItem("token")
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/confirm-sell`, {
+            const response = await fetch(`${API_URL}/confirm-sell`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

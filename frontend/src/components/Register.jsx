@@ -4,6 +4,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "./Agri.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function Register() {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
@@ -19,7 +21,7 @@ function Register() {
         }
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/register`, {
+            const response = await fetch(`${API_URL}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
