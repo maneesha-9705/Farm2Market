@@ -10,8 +10,8 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ 
-    origin: ['https://farm2market-lime.vercel.app', 'http://localhost:5173', 'http://localhost:5174'],
+app.use(cors({
+    origin: ['https://farm2market-9kq2htvlo-maneesha-garikipatis-projects.vercel.app', 'http://localhost:5173', 'http://localhost:5174'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
